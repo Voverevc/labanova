@@ -1,0 +1,25 @@
+#include <stdio.h>
+
+int main() {
+    // Объявление указателей
+    char *pc;     // Указатель на char
+    int *pi;      // Указатель на int
+    double *pd;   // Указатель на double
+
+    // Объявление переменных
+    char c = 'A';         // Переменная типа char
+    int i = 5;            // Переменная типа int
+    double d = 3.14;      // Переменная типа double
+
+    // Вывод размеров указателей
+    printf("Размер указателя на char: %lu байт\n", sizeof(pc));
+    printf("Размер указателя на int: %lu байт\n", sizeof(pi));
+    printf("Размер указателя на double: %lu байт\n", sizeof(pd));
+    
+    // Вывод размеров самих переменных
+    printf("Размер переменной типа char: %lu байт\n", sizeof(c));
+    printf("Размер переменной типа int: %lu байт\n", sizeof(i));
+    printf("Размер переменной типа double: %lu байт\n", sizeof(d));
+
+    return 0;
+}

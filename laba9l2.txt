@@ -1,0 +1,107 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+void analyze_number(const char *number) {
+    int count_3 = 0;
+    int last_digit = number[strlen(number) - 1] - '0';
+    int count_last_digit = 0;
+    int count_even = 0;
+    int count_greater_than_5 = 0;
+    int sum_odd = 0;
+    int sum_greater_than_equal_7 = 0;
+    int product_all_digits = 1;
+    int penultimate_digit = number[strlen(number) - 2] - '0';
+    int second_digit = number[strlen(number) - 3] - '0';
+    int sum_even_excluding_last = 0;
+    
+    // Для нахождения рядом расположенных одинаковых цифр
+    int count_same_adjacent = 0;
+
+    int half_length = strlen(number) / 2;
+    int sum_first_half = 0;
+    int sum_second_half = 0;
+
+    for (int i = 0; i < strlen(number); i++) {
+        int digit = number[i] - '0';
+
+        // 1) Количество цифр 3
+        if (digit == 3) count_3++;
+
+        // 2) Число повторений последней цифры
+        if (i > 0 && digit == last_digit) count_last_digit++;
+
+        // 3) Количество четных цифр
+        if (digit % 2 == 0) count_even++;
+
+        // 4) Количество цифр больших 5
+        if (digit > 5) count_greater_than_5++;
+
+        // 5) Сумма нечетных цифр
+        if (digit % 2 != 0) sum_odd += digit;
+
+        // 6) Сумма цифр больше или равно 7
+        if (digit >= 7) sum_greater_than_equal_7 += digit;
+
+        // 7) Произведение всех цифр, исключая 0
+        if (digit != 0) product_all_digits *= digit;
+
+        // 10) Рядом расположенные одинаковые цифры
+        if (i > 0 && number[i] == number[i - 1]) count_same_adjacent++;
+
+        // Суммы для определения равенства половин
+        if (i < half_length) {
+            sum_first_half += digit;
+        } else {
+            sum_second_half += digit;
+        }
+
+        // 9) Сумма четных цифр, исключая последнюю
+        if (digit % 2 == 0 && i < strlen(number) - 1) {
+            sum_even_excluding_last += digit;
+        }
+    }
+
+    // 8) Произведение предпоследней и второй цифры
+    int product_penultimate_second = penultimate_digit * second_digit;
+
+    // 11) Проверка равенства суммы первой и второй половины
+    int halves_equal = (sum_first_half == sum_second_half);
+
+    // 12) Произведение сумм четных и нечетных разрядов
+    int sum_even_digits = sum_even_excluding_last + last_digit; // Включаем последнюю цифру
+    int product_of_sums = sum_even_digits * sum_odd;
+
+    // Вывод результатов
+    printf("Количество цифр 3: %d\n", count_3);
+    printf("Количество повторений последней цифры: %d\n", count_last_digit);
+    printf("Количество четных цифр: %d\n", count_even);
+    printf("Количество цифр больше 5: %d\n", count_greater_than_5);
+    printf("Сумма нечетных цифр: %d\n", sum_odd);
+    printf("Сумма цифр >= 7: %d\n", sum_greater_than_equal_7);
+    printf("Произведение всех цифр (исключая 0): %d\n", product_all_digits);
+    printf("Произведение предпоследней и второй цифры: %d\n", product_penultimate_second);
+    printf("Сумма четных цифр (исключая последнюю): %d\n", sum_even_excluding_last);
+    printf("Количество рядом расположенных одинаковых цифр: %d\n", count_same_adjacent);
+    printf("Сумма первой и второй половины цифр равна? %s\n", halves_equal ? "Да" : "Нет");
+    printf("Произведение сумм четных и нечетных разрядов: %d\n", product_of_sums);
+}
+
+int main() {
+    while (1) {
+        char number[100]; // Ввод длинного числа
+        printf("Введите длинное число: ");
+        scanf("%s", number); // Ввод числа как строки
+
+        // Анализ числа
+        analyze_number(number);
+
+        // Запрос на продолжение
+
+        printf("Продолжить? (Да - y, нет - n): ");
+        char a = getchar(); // Считывание одного символа
+        getchar(); // Считывание новой строки после нажатия Enter
+        if (a == 'n') break;
+    }
+    return 0; // Завершение программы
+}

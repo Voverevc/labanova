@@ -1,0 +1,44 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+#define ARRAY_SIZE 100
+
+// Функция для вычисления значения элемента массива
+double calculate_value(int index) {
+    return (index % 3 == 0) ? (index * 1.5) : (index * -2.0); // Пример функции
+}
+
+int main() {
+    double array[ARRAY_SIZE];
+    double positive_sum = 0.0, negative_sum = 0.0;
+    int positive_count = 0, negative_count = 0;
+
+    // Генерация массива из 100 вещественных значений
+    for (int i = 0; i < ARRAY_SIZE; i++) {
+        array[i] = calculate_value(i);
+    }
+
+    // Вычисление суммы и количества положительных и отрицательных элементов
+    for (int i = 0; i < ARRAY_SIZE; i++) {
+        if (array[i] > 0) {
+            positive_sum += array[i];
+            positive_count++;
+        } else if (array[i] < 0) {
+            negative_sum += array[i];
+            negative_count++;
+        }
+    }
+
+    // Вычисление среднего значения положительных элементов
+    double positive_average = (positive_count > 0) ? (positive_sum / positive_count) : 0.0;
+
+    // Вывод результатов
+    printf("Имя массива: array\n");
+    printf("Накопленное значение положительных элементов: %.2f\n", positive_sum);
+    printf("Накопленное значение отрицательных элементов: %.2f\n", negative_sum);
+    printf("Число положительных элементов: %d\n", positive_count);
+    printf("Число отрицательных элементов: %d\n", negative_count);
+    printf("Среднее значение положительных элементов: %.2f\n", positive_average);
+
+    return 0;
+}

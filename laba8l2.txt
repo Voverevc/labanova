@@ -1,0 +1,39 @@
+#include <stdio.h>
+
+double function(double x) {
+    return 4 * x * x - 3; // Функция y = 4x^2 - 3
+}
+
+int main() {
+    double start = 2.0; // Начало интервала
+    double end = 4.0; // Конец интервала
+    double step; // Шаг табуляции
+    double current_x; // Текущее значение x
+
+    // Приглашение к вводу
+    printf("Функция для табуляции: y = 4x^2 - 3\n");
+    printf("Интервал: [%.1f; %.1f]\n", start, end);
+    printf("Введите шаг табуляции: ");
+    scanf("%lf", &step);
+
+    // Проверка на корректность шага
+    if (step <= 0) {
+        printf("Ошибка: шаг должен быть положительным числом.\n");
+        return 1;
+    }
+
+    // Вывод заголовков таблицы
+    printf("\n");
+    printf("|  x  |   f(x)   |\n");
+    printf("|-----|-----------|\n");
+
+    // Табуляция функции
+    for (current_x = start; current_x <= end; current_x += step) {
+        // Вычисление значения функции
+        double y = function(current_x);
+        // Вывод строки таблицы
+        printf("| %.2f | %.2f |\n", current_x, y);
+    }
+
+    return 0; // Завершение программы
+}
